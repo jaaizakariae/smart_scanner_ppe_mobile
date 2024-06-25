@@ -1,0 +1,1 @@
+# smart_scanner_ppe_mobile
