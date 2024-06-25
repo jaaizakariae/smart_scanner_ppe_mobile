@@ -1,4 +1,4 @@
-package com.example.smart_scanner_ppe_mobile
+package com.smart.scanner.ppe.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
