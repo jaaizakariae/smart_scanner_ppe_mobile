@@ -7,4 +7,5 @@
     <string name="gcm_defaultSenderId" translatable="false">1075202506575</string>
     <string name="google_storage_bucket" translatable="false">smartscannerppe.appspot.com</string>
     <string name="project_id" translatable="false">smartscannerppe</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDMP3n0Dw3w0QRGGZ3LvFy_yfwoP_AqgsQ</string>
 </resources>
