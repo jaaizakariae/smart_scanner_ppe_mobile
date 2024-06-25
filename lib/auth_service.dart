@@ -30,4 +30,12 @@ class AuthService {
     await _auth.signOut();
     await _googleSignIn.signOut();
   }
+
+  Future<String?> getToken() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      return await user.getIdToken();
+    }
+    return null;
+  }
 }

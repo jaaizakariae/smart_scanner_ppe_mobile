@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'camera_screen.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class ScanDocumentPage extends StatefulWidget {
   const ScanDocumentPage({Key? key}) : super(key: key);
@@ -11,6 +13,38 @@ class ScanDocumentPage extends StatefulWidget {
 
 class _ScanDocumentPageState extends State<ScanDocumentPage> {
   String? _imagePath;
+  String? _idToken;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeUser();
+  }
+
+  Future<void> _initializeUser() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      _idToken = await user.getIdToken();
+    }
+  }
+
+  Future<void> _uploadDocument() async {
+    if (_imagePath == null || _idToken == null) return;
+
+    final url = 'http://192.168.0.106:8080/api/v1/public/upload'; // Replace with your API endpoint
+    final request = http.MultipartRequest('POST', Uri.parse(url));
+
+    request.files.add(await http.MultipartFile.fromPath('file', _imagePath!));
+    request.headers['Authorization'] = 'Bearer $_idToken';
+
+    final response = await request.send();
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Upload successful')));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Upload failed')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +74,28 @@ class _ScanDocumentPageState extends State<ScanDocumentPage> {
             ),
           ),
           SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CameraScreen()),
-              );
-              if (result != null && result is String) {
-                setState(() {
-                  _imagePath = result;
-                });
-              }
-            },
-            child: const Text('Scan Document'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CameraScreen()),
+                  );
+                  if (result != null && result is String) {
+                    setState(() {
+                      _imagePath = result;
+                    });
+                  }
+                },
+                child: const Text('Scan Document'),
+              ),
+              ElevatedButton(
+                onPressed: _uploadDocument,
+                child: const Text('Upload'),
+              ),
+            ],
           ),
           SizedBox(height: 20), // Add some spacing at the bottom
         ],
