@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1075202506575",
+    "project_id": "smartscannerppe",
+    "storage_bucket": "smartscannerppe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075202506575:android:30b422da393ef1290a8f3a",
+        "android_client_info": {
+          "package_name": "com.smart.scanner.ppe.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075202506575-o83g6f1jr7fm343d3347hah4mahhsj19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMP3n0Dw3w0QRGGZ3LvFy_yfwoP_AqgsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075202506575-l6ifbd9q14jlode59pi21c70ibad1co9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
